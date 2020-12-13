@@ -1,0 +1,78 @@
+<!-- Incleyendo cabecera con ejs -->
+<%- include ('partials/header') %>
+
+	<!-- 	<pre>
+	<%= tasks %>
+</pre> -->
+
+	<div class="container">
+		<div class="row">
+			<!-- FORMULARIO -->
+			<div class="col-md-5">
+				<div class="card border-danger mb-3" style="max-width: 100%;">
+					<div class="card-header text-white bg-danger">
+						<h3>Agrega tu tarea</h3>
+					</div>
+					<div class="card-body">
+						<form action="/add" method="POST">
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">Agrega tu proxima tarea</label>
+								<input type="text" name="title" class="form-control" id="exampleFormControlInput1"
+									placeholder="Agrega tú tarea">
+							</div>
+							<div class="mb-3">
+								<label for="exampleFormControlTextarea1" class="form-label">Describe tu tarea</label>
+								<textarea name="description" class="form-control" id="exampleFormControlTextarea1" cols="80" rows="4"
+									placeholder="Describe tu tarea"></textarea>
+							</div>
+
+							<div class="d-grid gap-2">
+								<button class="btn btn-outline-dark" type="submit">Guardar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- LISTADO O TABLA DE LISTAS -->
+			<div class="col-md-7">
+				<table class="table table-bordered table-hover table-dark table-striped">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">No.</th>
+							<th scope="col">Título</th>
+							<th scope="col">Descripción</th>
+							<th scope="col">Operación</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% for( let i=0; i < tasks.length; i++){ %>
+							<tr>
+								<th class="text-center" scope="row">
+									<%= i + 1 %>
+								</th>
+								<td>
+									<%= tasks[i].title %>
+								</td>
+								<td>
+									<%= tasks[i].description %>
+								</td>
+								<td>
+									<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+										<a href="/done/<%= tasks[i]._id %>"
+											class="btn text-white <%= tasks[i].status ? 'btn-success' : 'btn-outline-dark'%>  me-md-2">
+											Realizado</a>
+										<a href="/edit/<%= tasks[i]._id %>" class="btn btn-outline-info me-md-2">
+											Editar</a>
+										<a href="/delete/<%= tasks[i]._id %>" class="btn btn-outline-danger">
+											Eliminar</a>
+									</div>
+								</td>
+							</tr>
+							<%} %>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<%- include('partials/footer') %>
